@@ -1,16 +1,14 @@
--- Cria o banco de dados chamado 'school_universe'
+
 # CREATE DATABASE school_universe;
 
--- Seleciona o banco de dados 'school_universe' para uso
 USE school_universe;
 
--- Remove as tabelas se existirem (ordem importa por causa das dependências)
 # DROP TABLE IF EXISTS Pagamento;
 # DROP TABLE IF EXISTS Compra;
 # DROP TABLE IF EXISTS Produto;
 # DROP TABLE IF EXISTS Clientes;
 
--- Tabela de clientes
+-- clientes
 CREATE TABLE Clientes (
     id_clientes INT AUTO_INCREMENT PRIMARY KEY,       -- ID único com incremento automático
     nome VARCHAR(255) NOT NULL,                        -- Nome completo do cliente
@@ -34,32 +32,32 @@ CREATE TABLE Clientes (
 # SELECT COUNT(*) FROM clientes;
 # SELECT DATABASE();
 
--- Tabela de produtos disponíveis
+-- Produtos
 CREATE TABLE Produto (
-    `id_produto` INT AUTO_INCREMENT PRIMARY KEY,       -- ID do produto
-    `nome` VARCHAR(255) NOT NULL,                      -- Nome do produto
-    `marca` VARCHAR(255) NOT NULL,                     -- Marca do produto
-    `preco` DECIMAL(10,2) NOT NULL,                    -- Preço do produto
-    `quantidade_estoque` INT NOT NULL DEFAULT 0        -- Quantidade disponível em estoque
+    `id_produto` INT AUTO_INCREMENT PRIMARY KEY,       
+    `nome` VARCHAR(255) NOT NULL,                     
+    `marca` VARCHAR(255) NOT NULL,                   
+    `preco` DECIMAL(10,2) NOT NULL,                  
+    `quantidade_estoque` INT NOT NULL DEFAULT 0       
 );
 
--- Tabela de compras realizadas
+-- Compras realizadas
 CREATE TABLE Compra (
-    `id_compra` INT AUTO_INCREMENT PRIMARY KEY,        -- ID da compra
-    `data` DATE NOT NULL,                              -- Data da compra
-    `total` DECIMAL(10,2) NOT NULL,                    -- Valor total da compra
-    `cliente_id` INT,                                  -- Cliente que fez a compra
+    `id_compra` INT AUTO_INCREMENT PRIMARY KEY,       
+    `data` DATE NOT NULL,                            
+    `total` DECIMAL(10,2) NOT NULL,                  
+    `cliente_id` INT,                              
     FOREIGN KEY (cliente_id) REFERENCES Clientes(id_clientes)
 );
 
--- Tabela de pagamento das compras
+-- Pagamentos
 CREATE TABLE Pagamento (
-    `id_pagamento` INT AUTO_INCREMENT PRIMARY KEY,     -- ID do pagamento
-    `metodo` VARCHAR(255) NOT NULL,                    -- Método usado no pagamento
-    `status` VARCHAR(255) NOT NULL,                    -- Status do pagamento (aprovado, pendente, etc.)
-    `valor` DECIMAL(10,2) NOT NULL,                    -- Valor pago
-    `data_pagamento` DATE NOT NULL,                    -- Data do pagamento
-    `compra_id` INT,                                   -- Compra relacionada a este pagamento
+    `id_pagamento` INT AUTO_INCREMENT PRIMARY KEY,     
+    `metodo` VARCHAR(255) NOT NULL,               
+    `status` VARCHAR(255) NOT NULL,                 
+    `valor` DECIMAL(10,2) NOT NULL,               
+    `data_pagamento` DATE NOT NULL,                 
+    `compra_id` INT,                             
     FOREIGN KEY (compra_id) REFERENCES Compra(id_compra)
 );
 
@@ -85,6 +83,6 @@ INSERT INTO Produto (nome, marca, preco, quantidade_estoque) VALUES
 ('Transferidor', 'Trident', 3.00, 50),
 ('Agenda Escolar', 'Tilibra', 14.50, 25);
 
--- Exibe a estrutura da tabela 'Clientes'
+-- Exibe a tabela 'Clientes'
 # DESCRIBE Produto;
 # select * from Produto;
